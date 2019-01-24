@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include head %>
+  
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 600px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 80%;
+    }
+    
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: 800px;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+#customers {
+  font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+}
+
+#customers tbody:nth-child(even){background-color: #f2f2f2;}
+
+#customers tbody:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #4CAF50;
+  color: white;
+}
+  </style>
+</head>
+<body>
+
+
+<header>
+    <% include header %>
+</header>
+
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>ADMIN'S PANEL</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="/admin">Home</a></li>
+        <li><a href="/admin_teacher">Teachers List</a></li>
+        <li class="active"><a href="#section3">Users List</a></li>
+         <li><a href="/logout">Logout</a></li>
+      </ul><br>
+    </div>
+
+    <div class="col-sm-9">
+   <h2>Users Signed In</h2>
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
+
+<table id="customers">
+<thead>
+    <th>Email</th>
+    <th>Options</th>
+  </thead>
+    <% users.forEach(function(user) { %>
+        <tbody id="myTable">
+        <tr>
+        <td><%= user.email %></td>
+        <td><form action="/user/<%= user.email%>/delete" method="post">
+  <div class="form-group">
+    <input type="hidden" name="_csrf" value="{{ csrfToken }}" />
+    <button type="submit" class="btn btn-danger">Delete Account</button>
+  </div>
+</form></td>
+        </tr>
+    <% }); %>
+</tbody>
+</table>  
+
+     
+
+
+      
+</div>
+
+
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+
+
+
+</body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+    <% include footer %>
+</footer>
+</html>

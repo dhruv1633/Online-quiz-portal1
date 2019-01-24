@@ -1,0 +1,59 @@
+<html lang="en">
+<head>
+    <% include head %>
+
+</head>
+<head>
+<style> 
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: #f44336;
+  border: none;
+  color: white;
+  padding: 10px 32px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+input[type="email"], input[type="password"]{
+width:40%;
+background-color: #A9A9A9;
+}
+</style>
+</head>
+<body class="container">
+
+<header>
+    <% include header %>
+</header>
+
+<main>
+    <div class="jumbotron">
+        <h3 align="center">SIGNUP</h3>
+<br><br><form action="/data" align="center" method="post">
+   
+  
+<p><%= expressFlash %> </p>
+  
+
+
+
+
+<p>Email:</p>
+  <input type="email" name="email">
+  <br><br>
+  <p>Password:</p>
+  <input type="password" name="password">
+  <br><br>
+  <input type="submit" value="signup">
+</form> 
+
+    
+</div>
+</main>
+
+<footer>
+    <% include footer %>
+</footer>
+
+</body>
+</html>

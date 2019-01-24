@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<% include head %>
+  
+<title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>  
+<style>
+    /* Set height of the grid so .sidenav can be 100% (adjust if needed) */
+    .row.content {height: 600px}
+    
+    /* Set gray background color and 100% height */
+    .sidenav {
+      background-color: #f1f1f1;
+      height: 80%;
+    }
+    
+    
+    /* On small screens, set height to 'auto' for sidenav and grid */
+    @media screen and (max-width: 767px) {
+      .sidenav {
+        height: 800px;
+        padding: 15px;
+      }
+      .row.content {height:auto;} 
+    }
+  </style>
+<style>
+.dropbtn {
+  background-color: #FF0000;
+  color: white;
+  padding: 10px;
+  width:350px;
+  font-size: 16px;
+  border: none;
+  border-radius: 8px;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f1f1f1;
+  min-width: 350px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.dropdown:hover .dropdown-content {display: block;}
+
+.dropdown:hover .dropbtn {background-color: #3e8e41;}
+</style>
+</head>
+<body>
+
+
+<header>
+    <% include header %>
+</header>
+
+
+<div class="container-fluid">
+  <div class="row content">
+    <div class="col-sm-3 sidenav">
+      <h4>C Programming</h4>
+      <ul class="nav nav-pills nav-stacked">
+        <li><a href="/login">Logout</a></li>
+  
+    </ul><br>
+    </div>
+
+    <div class="col-sm-9">
+      
+<ol>
+    <% cq.forEach(function(ques) { %>
+        <li><%= ques.q %></li>
+        <form name="<%= ques.id %>" method="get">
+		<input type="radio" name="op" value="<%= ques.op1 %>"> <%= ques.op1 %><br>
+		<input type="radio" name="op" value="<%= ques.op2 %>"> <%= ques.op2 %><br>
+		<input type="radio" name="op" value="<%= ques.op3 %>"> <%= ques.op3 %><br>
+		<input type="radio" name="op" value="<%= ques.op4 %>"> <%= ques.op4 %><br><br>
+		<input type="hidden" name="ans" value="<%= ques.ans %>">
+		<input type="hidden" name="q" value="<%= ques.q %>">
+		
+		<p id="<%= ques.id %>"></p>
+		<div class="form-group">
+		
+		<button type="button" onclick="yes('<%= ques.id %>')" class="btn btn-danger">Submit</button><br><br>
+		</div>
+		</form>
+
+        <br><br><br>
+<script>
+function yes(id){
+var x=document.forms[id]["op"].value;
+var y=document.forms[id]["ans"].value;
+if(x==y)
+document.getElementById(id).innerHTML ="Correct Answer";
+else
+document.getElementById(id).innerHTML ="Incorrect";
+}
+</script>
+    <% }); %>
+</ol>
+
+      
+</div>
+
+
+
+
+
+</body>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<footer>
+    <% include footer %>
+</footer>
+</html>
